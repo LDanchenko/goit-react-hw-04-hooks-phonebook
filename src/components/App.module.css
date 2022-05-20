@@ -47,3 +47,8 @@
 .list {
   text-align: left;
 }
+
+.filter {
+  composes: label;
+  display: block;
+}
