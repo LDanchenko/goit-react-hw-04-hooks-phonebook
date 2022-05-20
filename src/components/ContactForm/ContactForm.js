@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 import style from './ContactForm.module.css';
 
 const INITIAL_STATE = {
@@ -73,3 +74,7 @@ class ContactForm extends Component {
 }
 
 export { ContactForm };
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

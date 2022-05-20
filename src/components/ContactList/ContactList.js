@@ -1,4 +1,5 @@
 import style from './ContactList.module.css';
+import PropTypes from 'prop-types';
 
 const ContactList = ({ contacts, filter }) => {
   return (
@@ -15,3 +16,8 @@ const ContactList = ({ contacts, filter }) => {
 };
 
 export { ContactList };
+
+ContactList.propTypes = {
+  contacts: PropTypes.array.isRequired,
+  filter: PropTypes.string.isRequired,
+};
