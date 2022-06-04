@@ -19,6 +19,13 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    const contacts = localStorage.getItem(CONTACTS_LIST);
+    if (contacts) {
+      this.setState({ contacts: JSON.parse(contacts) });
+    }
+  }
+
   handleInputChange = (name, value) => {
     this.setState({ [name]: value });
   };
