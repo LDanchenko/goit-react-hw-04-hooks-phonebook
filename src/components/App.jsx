@@ -5,11 +5,19 @@ import { ContactForm } from './ContactForm';
 import { Filter } from './Filter';
 import { ContactList } from './ContactList';
 
+const CONTACTS_LIST = 'contactList';
+
 class App extends Component {
   state = {
     contacts: [],
     filter: '',
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem(CONTACTS_LIST, JSON.stringify(this.state.contacts));
+    }
+  }
 
   handleInputChange = (name, value) => {
     this.setState({ [name]: value });
