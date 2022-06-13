@@ -4,7 +4,7 @@ import style from './Filter.module.css';
 
 class Filter extends Component {
   handleInputChange = name => event => {
-    this.props.onChange && this.props.onChange(name, event.target.value);
+    this.props.onChange && this.props.onChange(event.target.value.trim());
   };
   render() {
     return (

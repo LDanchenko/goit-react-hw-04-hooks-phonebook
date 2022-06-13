@@ -32,8 +32,13 @@ class ContactForm extends Component {
     this.setState({ ...INITIAL_STATE });
   };
 
+  // componentDidUpdate() {
+  //   console.log('updated contact form');
+  // }
+
   render() {
     const { name, number } = this.state;
+    // console.log('rerender');
 
     return (
       <form className={style.form} onSubmit={this.handleSubmit}>
