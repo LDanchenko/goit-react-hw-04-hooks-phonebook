@@ -20,11 +20,6 @@ const App = () => {
     localStorage.setItem(CONTACTS_LIST, JSON.stringify(contacts));
   }, [contacts]);
 
-  const handleInputChange = value => {
-    setFilter(value);
-    //??
-  };
-
   const addContact = (name, number) => {
     const nameNormalized = name.toLowerCase();
     if (
@@ -52,7 +47,7 @@ const App = () => {
       <h2>Contacts</h2>
       {contacts.length > 0 && (
         <>
-          <Filter value={filter} onChange={handleInputChange} />
+          <Filter value={filter} onChange={setFilter} />
           <ContactList
             contacts={contacts}
             filter={filter.toLowerCase()}
