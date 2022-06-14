@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import style from './App.module.css';
 import { ContactForm } from './ContactForm';
 import { Filter } from './Filter';
@@ -7,16 +7,26 @@ import { ContactList } from './ContactList';
 
 const CONTACTS_LIST = 'contactList';
 
+const reducer = (contacts, action) => {
+  switch (action.type) {
+    case 'add':
+      return [...contacts, action.contact];
+    case 'delete':
+      return contacts.filter(contact => action.contact.id !== contact.id);
+    default:
+      return contacts;
+  }
+};
+
+const initialState = localStorage.getItem(CONTACTS_LIST)
+  ? JSON.parse(localStorage.getItem(CONTACTS_LIST))
+  : [];
+
 const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    return localStorage.getItem(CONTACTS_LIST)
-      ? JSON.parse(localStorage.getItem(CONTACTS_LIST))
-      : [];
-  });
+  const [contacts, dispatch] = useReducer(reducer, initialState);
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    console.log(contacts);
     localStorage.setItem(CONTACTS_LIST, JSON.stringify(contacts));
   }, [contacts]);
 
@@ -27,17 +37,13 @@ const App = () => {
     ) {
       alert(name + ' is already in the contacts.');
     } else {
-      setContacts(prevState => {
-        const id = nanoid();
-        return [...prevState, { id, name, number }];
-      });
+      const id = nanoid();
+      dispatch({ type: 'add', contact: { id, name, number } });
     }
   };
 
   const deleteContact = id => {
-    setContacts(prevState => {
-      return prevState.filter(contact => contact.id !== id);
-    });
+    dispatch({ type: 'delete', contact: { id } });
   };
 
   return (
